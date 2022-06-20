@@ -15,7 +15,9 @@ public class ParkingLotTest {
     public void should_return_ticket_when_park_given_1_vacancies() {
         ParkingLot parkingLot = new ParkingLot(1);
         Car car = new Car();
+
         Ticket ticket = parkingLot.park(car);
+
         assertThat(ticket).isNotNull();
     }
 
@@ -24,6 +26,7 @@ public class ParkingLotTest {
     public void should_throw_fully_parked_exception_when_park_given_no_vacancies() {
         ParkingLot parkingLot = new ParkingLot(0);
         Car car = new Car();
+
         assertThatThrownBy(() -> parkingLot.park(car)).isInstanceOf(FullyParkedException.class);
     }
 
@@ -35,6 +38,7 @@ public class ParkingLotTest {
         Ticket ticket = parkingLot.park(expectedCar);
 
         Car actualCar = parkingLot.pickUp(ticket);
+
         assertThat(actualCar).isEqualTo(expectedCar);
     }
 
@@ -43,9 +47,9 @@ public class ParkingLotTest {
     public void should_throw_invalid_ticket_exception_when_pick_up_given_a_ticket_from_other_parking_lot() {
         ParkingLot parkingLot = new ParkingLot(1);
         ParkingLot anotherParkingLot = new ParkingLot(1);
-
         Car car = new Car();
         Ticket ticket = anotherParkingLot.park(car);
+
         assertThatThrownBy(() -> parkingLot.pickUp(ticket)).isInstanceOf(InvalidTicketException.class);
     }
 
