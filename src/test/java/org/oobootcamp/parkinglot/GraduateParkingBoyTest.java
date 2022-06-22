@@ -8,17 +8,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GraduateParkingBoyTest {
-    //-  Given 第一个停车场有1个空位, When 停车 Then 车停在第一个停车场，返回停车票
+    //-  Given 两个停车场，第一个停车场有1个空位, When 停车 Then 车停在第一个停车场，返回停车票
 
     @Test
     void should_return_ticket_when_park_given_has_space_in_first_parking_lot() {
-        ParkingLot parkingLot = new ParkingLot(1);
-        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLot);
+        ParkingLot firstParkingLot = new ParkingLot(1);
+        ParkingLot secondParkingLot = new ParkingLot(1);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(firstParkingLot, secondParkingLot);
         Car car = new Car();
 
         Ticket ticket = graduateParkingBoy.park(car);
 
         assertThat(ticket).isNotNull();
+        assertThat(firstParkingLot.pickUp(ticket)).isSameAs(car);
     }
 
     //-  Given 第一个停车场已满，第二个停车场有1个空位, When 停车 Then 车停在第二个停车场，返回停车票
@@ -32,6 +34,7 @@ public class GraduateParkingBoyTest {
         Ticket ticket = graduateParkingBoy.park(car);
 
         assertThat(ticket).isNotNull();
+        assertThat(secondParkingLot.pickUp(ticket)).isSameAs(car);
     }
 
     // -  Given 两个停车场都没有空位, When 停车 Then 失败，提示停车场已满

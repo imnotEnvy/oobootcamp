@@ -33,11 +33,11 @@ public class ParkingLot {
         return car;
     }
 
-    public boolean hasVacancy(){
+    public boolean hasVacancy() {
         return parkedCars.size() < capacity;
     }
 
-    public boolean parked(Ticket ticket){
+    public boolean parked(Ticket ticket) {
         return parkedCars.containsKey(ticket);
     }
 }
