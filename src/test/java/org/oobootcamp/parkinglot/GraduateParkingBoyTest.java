@@ -5,13 +5,13 @@ import org.oobootcamp.parkinglot.exceptions.FullyParkedException;
 import org.oobootcamp.parkinglot.exceptions.InvalidTicketException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GraduateParkingBoyTest {
     //-  Given 第一个停车场有1个空位, When 停车 Then 车停在第一个停车场，返回停车票
 
     @Test
-    void should_return_ticket_when_park_called_given_has_space_in_first_parking_lot(){
+    void should_return_ticket_when_park_given_has_space_in_first_parking_lot() {
         ParkingLot parkingLot = new ParkingLot(1);
         GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLot);
         Car car = new Car();
@@ -23,7 +23,7 @@ public class GraduateParkingBoyTest {
 
     //-  Given 第一个停车场已满，第二个停车场有1个空位, When 停车 Then 车停在第二个停车场，返回停车票
     @Test
-    void should_return_ticket_when_park_called_given_the_first_parking_lot_is_full_and_the_second_parking_lot_has_vacancy(){
+    void should_return_ticket_when_park_given_the_first_parking_lot_is_full_and_the_second_parking_lot_has_vacancy() {
         ParkingLot firstParkingLot = new ParkingLot(0);
         ParkingLot secondParkingLot = new ParkingLot(1);
         GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(firstParkingLot, secondParkingLot);
@@ -36,14 +36,13 @@ public class GraduateParkingBoyTest {
 
     // -  Given 两个停车场都没有空位, When 停车 Then 失败，提示停车场已满
     @Test
-    void should_throw_fully_parked_exception_when_park_called_given_all_parking_lots_has_no_vacancy(){
+    void should_throw_fully_parked_exception_when_park_given_all_parking_lots_has_no_vacancy() {
         ParkingLot firstParkingLot = new ParkingLot(0);
         ParkingLot secondParkingLot = new ParkingLot(0);
         GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(firstParkingLot, secondParkingLot);
         Car car = new Car();
 
-        assertThatThrownBy(() -> graduateParkingBoy.park(car)).isInstanceOf(FullyParkedException.class);
-
+        assertThrows(FullyParkedException.class, () -> graduateParkingBoy.park(car));
     }
 
     // -  Given 我的车在停车场中并且有对应停车票, When 取车, Then 可以取走
@@ -56,7 +55,7 @@ public class GraduateParkingBoyTest {
 
         Car pickedCar = graduateParkingBoy.pickUp(ticket);
 
-        assertThat(pickedCar).isEqualTo(car);
+        assertThat(pickedCar).isSameAs(car);
     }
 
     //     -  Given 有别的停车场的停车票 When 取车 Then 不能取车，提示无效票
@@ -68,7 +67,7 @@ public class GraduateParkingBoyTest {
         ParkingLot anotherParkingLot = new ParkingLot(1);
         Ticket ticket = anotherParkingLot.park(car);
 
-        assertThatThrownBy(() -> graduateParkingBoy.pickUp(ticket)).isInstanceOf(InvalidTicketException.class);
+        assertThrows(InvalidTicketException.class, () -> graduateParkingBoy.pickUp(ticket));
     }
 
     //     -  Given 有本停车场使用过的停车票, When 取车, Then 不能取车，提示无效票
@@ -80,6 +79,6 @@ public class GraduateParkingBoyTest {
         Ticket ticket = graduateParkingBoy.park(car);
         graduateParkingBoy.pickUp(ticket);
 
-        assertThatThrownBy(() -> parkingLot.pickUp(ticket)).isInstanceOf(InvalidTicketException.class);
+        assertThrows(InvalidTicketException.class, () -> graduateParkingBoy.pickUp(ticket));
     }
 }

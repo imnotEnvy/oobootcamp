@@ -7,21 +7,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParkingLot {
-    private int vacancies;
-    private final Map<Ticket, Car> lot;
+    private final int capacity;
+    private final Map<Ticket, Car> parkedCars;
 
-    public ParkingLot(int vacancies) {
-        this.vacancies = vacancies;
-        this.lot = new HashMap<>();
+    public ParkingLot(int capacity) {
+        this.capacity = capacity;
+        this.parkedCars = new HashMap<>();
     }
 
     public Ticket park(Car car) {
         if (!hasVacancy()) {
             throw new FullyParkedException();
         }
-        vacancies --;
         Ticket ticket = new Ticket();
-        lot.put(ticket, car);
+        parkedCars.put(ticket, car);
         return ticket;
     }
 
@@ -29,17 +28,16 @@ public class ParkingLot {
         if (!parked(ticket)) {
             throw new InvalidTicketException();
         }
-        Car car = lot.get(ticket);
-        vacancies ++;
-        lot.remove(ticket);
+        Car car = parkedCars.get(ticket);
+        parkedCars.remove(ticket);
         return car;
     }
 
     public boolean hasVacancy(){
-        return vacancies > 0;
+        return parkedCars.size() < capacity;
     }
 
     public boolean parked(Ticket ticket){
-        return lot.containsKey(ticket);
+        return parkedCars.containsKey(ticket);
     }
 }
