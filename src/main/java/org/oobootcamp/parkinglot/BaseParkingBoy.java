@@ -1,10 +1,11 @@
 package org.oobootcamp.parkinglot;
 
+import org.oobootcamp.Parkable;
 import org.oobootcamp.parkinglot.exceptions.InvalidTicketException;
 
 import java.util.List;
 
-public abstract class BaseParkingBoy {
+public abstract class BaseParkingBoy implements Parkable {
 
     public List<ParkingLot> parkingLots;
 
