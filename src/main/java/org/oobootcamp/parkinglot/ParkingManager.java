@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ParkingManager {
 
-    private List<Parkable> parkables;
+    private final List<Parkable> parkables;
 
     public ParkingManager(Parkable... parkables) {
         this.parkables = List.of(parkables);

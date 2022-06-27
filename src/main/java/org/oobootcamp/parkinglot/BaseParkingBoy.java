@@ -12,6 +12,8 @@ public abstract class BaseParkingBoy {
         this.parkingLots = List.of(parkingLots);
     }
 
+    abstract public Ticket park(Car car);
+
     public Car pickUp(Ticket ticket) {
         return parkingLots.stream()
                 .filter(parkingLot -> parkingLot.parked(ticket)).findFirst()
