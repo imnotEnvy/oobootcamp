@@ -41,7 +41,7 @@ public class ParkingLot {
         return parkedCars.containsKey(ticket);
     }
 
-    public int getVacanciesCount() {
+    public int getVacancies() {
         return capacity - parkedCars.size();
     }
 

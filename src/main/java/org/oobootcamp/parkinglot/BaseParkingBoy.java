@@ -1,7 +1,22 @@
 package org.oobootcamp.parkinglot;
 
+import org.oobootcamp.parkinglot.exceptions.InvalidTicketException;
+
 import java.util.List;
 
-public class BaseParkingBoy {
+public abstract class BaseParkingBoy {
+
+    public List<ParkingLot> parkingLots;
+
+    public BaseParkingBoy(ParkingLot... parkingLots) {
+        this.parkingLots = List.of(parkingLots);
+    }
+
+    public Car pickUp(Ticket ticket) {
+        return parkingLots.stream()
+                .filter(parkingLot -> parkingLot.parked(ticket)).findFirst()
+                .orElseThrow(InvalidTicketException::new)
+                .pickUp(ticket);
+    }
 
 }
