@@ -2,6 +2,7 @@ package org.oobootcamp.parkinglot;
 
 import org.oobootcamp.Parkable;
 import org.oobootcamp.parkinglot.exceptions.FullyParkedException;
+import org.oobootcamp.parkinglot.exceptions.InvalidTicketException;
 
 import java.util.List;
 
@@ -20,4 +21,13 @@ public class ParkingManager {
                 .orElseThrow(FullyParkedException::new)
                 .park(car);
     }
+
+    public Car pickUp(Ticket ticket) {
+        return parkables.stream()
+                .filter(parkable -> parkable.parked(ticket)).findFirst()
+                .orElseThrow(InvalidTicketException::new)
+                .pickUp(ticket);
+    }
+
+
 }

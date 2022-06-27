@@ -10,4 +10,6 @@ public interface Parkable {
     Car pickUp(Ticket ticket);
 
     boolean hasVacancy();
+
+    boolean parked(Ticket ticket);
 }

@@ -19,8 +19,13 @@ public abstract class BaseParkingBoy {
                 .pickUp(ticket);
     }
 
-    public boolean hasVacancy(){
+    public boolean hasVacancy() {
         return parkingLots.stream().anyMatch(ParkingLot::hasVacancy);
+    }
+
+
+    public boolean parked(Ticket ticket) {
+        return parkingLots.stream().anyMatch(parkingLot -> parkingLot.parked(ticket));
     }
 
 }
