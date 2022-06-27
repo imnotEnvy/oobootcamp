@@ -1,5 +1,6 @@
 package org.oobootcamp.parkinglot;
 
+import org.oobootcamp.Parkable;
 import org.oobootcamp.parkinglot.exceptions.FullyParkedException;
 import org.oobootcamp.parkinglot.exceptions.InvalidTicketException;
 
@@ -7,8 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class GraduateParkingBoy extends BaseParkingBoy {
-    
+public class GraduateParkingBoy extends BaseParkingBoy implements Parkable {
+
     public GraduateParkingBoy(ParkingLot... parkingLots) {
         super(parkingLots);
     }

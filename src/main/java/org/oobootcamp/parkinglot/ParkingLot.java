@@ -1,12 +1,13 @@
 package org.oobootcamp.parkinglot;
 
+import org.oobootcamp.Parkable;
 import org.oobootcamp.parkinglot.exceptions.FullyParkedException;
 import org.oobootcamp.parkinglot.exceptions.InvalidTicketException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ParkingLot {
+public class ParkingLot implements Parkable {
     private final int capacity;
     private final Map<Ticket, Car> parkedCars;
 
